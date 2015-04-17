@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1 id="title_area"></h1>
+
+<p id="text_area"></p>
+
+<button type="button" onclick="ButtonClick('button')">
+	button
+</button>
+
+<script src="js/debug.js"></script>
+<script>
+
+function ButtonClick(id)
+{
+	var source = document.getElementById('button');
+	var dest = document.getElementById('text_area');
+	dest.innerHTML = id;
+	debug("ButtonClick('" + id + "')");
+}
+
+</script>
+</body>
+</html>

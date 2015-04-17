@@ -1,0 +1,57 @@
+We want a simple web page that tracks a deck's matchups against other decks.
+
+Druid
+Hunter
+Mage
+Paladin
+Priest
+Rogue
+Shaman
+Warlock
+Warrior
+
+
+Qualities of a player deck
+	has a name
+	has overall matchups against the nine heroes
+		each hero matchup is further broken down into aggro/midrange/control
+
+class Deck:
+	string name
+	Map<string,Matchup> Matchups
+
+class Matchup:
+	string classname
+	int aggroGames
+	int aggroWins
+	int midrangeGames
+	int midrangeWins
+	int controlGames
+	int controlWins
+
+Save files:
+	a savefile consists of a sequence of strings delimited by the character '|'
+	a field 'player' indicates the next string will begin a new player data set
+	a field 'deck' indicates the next several strings correspond to matchups for a new deck
+
+ex:
+player|Andromeda|deck|Warlock|Handlock|Druid|0|0|0|0|0|0|Hunter|0|0|0|0|0|0|Mage|0|0|0|0|0|0|Paladin|0|0|0|0|0|0|Priest|0|0|0|0|0|0|Rogue|0|0|0|0|0|0|Shaman|0|0|0|0|0|0|Warlock|0|0|0|0|0|0|Warrior|0|0|0|0|0|0|
+
+the save file should be easily parsed. 
+	player flag indicates a new player object should be populated with name equal to the next field
+	deck flag indicates a new deck object should be populated with the following class, name, and matchups
+		note that the six counters associated to each matchup are preceded by the matchup's class name
+		the order of the matchup counter fields are as follows
+			games played against aggro
+			games won against aggro
+			games played against midrange
+			games won against midrange
+			games played against control
+			games won against control
+
+so a save file should look like this:
+	player|player name|[deck|deck class|deck name|[matchup|aggro games|aggro wins|midrange games|midrange wins|control games|control wins]...]...
+
+where the deck fiel
+			
+
