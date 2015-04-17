@@ -13,7 +13,24 @@ var heroNames = [
 
 
 
-/* Define Stats object properties and methods */
+/* Define Stats object properties and methods 
+ * 
+ * Stats.properties:
+ * 		games -- records total games and games broken down by hero class
+ * 		wins  -- records total wins and wins broken down by hero class
+ *
+ * Stats.methods:
+ * 		victory(hero)
+ * 			records a victory against the given hero
+ * 		defeat(hero)
+ * 			records a defeat against the given hero
+ * 		update()
+ * 			recounts the total games/wins by tabulating the stats per hero
+ * 		reset()
+ * 			resets the statistics to 0 games, 0 wins for all heroes
+ * 		setHero(hero,games,wins)
+ * 			sets the statistics for the given hero to the given totals
+ * */
 
 //Stats constructor
 function Stats()
@@ -80,6 +97,23 @@ function Stats()
 
 		return this;
 	}
+
+
+
+	this.setHero(hero,games,wins)
+	{
+		var diff = 0;
+
+		diff = this.games[hero] - games;
+		this.games[hero] = games;
+		this.games.total += gdiff;
+		
+		diff = this.wins[hero] - wins;
+		this.wins[hero] = wins;
+		this.wins.total += wdiff;
+
+		return this;
+	}
 }
 
 
@@ -108,6 +142,8 @@ function Stats()
  * 			resets the matchup record to 0 games, 0 wins
  * 		rename(name)
  * 			renames the deck to the given name
+ * 		compare(matchup)
+ * 			returns -1,0,1 according to usual comparison rules for sorting
  * */
 
 //Matchup constructor
@@ -169,6 +205,20 @@ Matchup.prototype.rename = function (name)
 
 
 
+Matchup.prototype.compare = function (matchup)
+{
+	var cmp = this.hero.localeCompare(matchup.hero);
+
+	if (!cmp)
+	{
+		cmp this.name.localeCompare(matchup.name);
+	}
+
+	return cmp;
+}
+
+
+
 
 
 
@@ -190,8 +240,10 @@ Matchup.prototype.rename = function (name)
  * 			records a game win against the given hero and deck name
  * 		defeat(hero,name)
  * 			records a game loss against the given hero and deck name
- * 		newMatchup(hero,name)
+ * 		addMatchup(hero,name)
  * 			creates a new, empty record for the given hero/deck matchup
+ * 		removeMatchup(hero,name)
+ * 			deletes all data for the given matchup
  * 		getMatchup(hero,name)
  * 			returns the Matchup object for the given hero/deck
  * 		rename(name)
@@ -218,112 +270,143 @@ function Deck(hero,name)
 
 
 
-Deck.prototype.victory = function ()
+Deck.prototype.getMatchup = function (hero,name)
 {
+	var m;
 
+	for (var i = 0; i < this.matchups.length; i++)
+	{
+		m = this.matchups[hero][i];
+		if (m.name == name)
+		{
+			return m;
+		}
+	}
+
+	return undefined;
 }
 
 
 
-Deck.prototype.defeat = function ()
+Deck.prototype.addMatchup = function (hero,name)
 {
+	//verify DNE
+	var matchup = this.getMatchup(hero,name);
+	if (matchup) return matchup;
+	else matchup = new Matchup(hero,name);
 
+	//add new matchup to this.matchups.all
+	this.matchups.all.push(matchup);
+	this.matchups.all.sort( function (a,b) { return a.compare(b); }	);
+
+	//add new matchup to this.matchups[hero]
+	this.matchups[hero].push(matchup);
+	this.matchups[hero].sort( function (a,b) { return a.compare(b); } );
+
+	return matchup;
 }
 
 
 
-Deck.prototype. = function ()
+Deck.prototype.removeMatchup = function (hero,name)
 {
-
+	
 }
 
 
 
-Deck.prototype. = function ()
+Deck.prototype.getMatchupByHero = function (hero)
 {
-
+	return this.matchups[hero];
 }
 
 
 
-Deck.prototype. = function ()
+Deck.prototype.getAllMatchups = function ()
 {
-
+	return this.matchups.all;
 }
 
 
 
-Deck.prototype. = function ()
+Deck.prototype.victory = function (hero,name)
 {
+	this.stats.victory(hero);
+	this.getMatchup(hero,name).victory();
 
+	return this;
 }
 
 
 
-Deck.prototype. = function ()
+Deck.prototype.defeat = function (hero,name)
 {
+	this.stats.defeat(hero);
+	this.getMatchup(hero,name).defeat();
 
+	return this;
 }
 
 
 
-Deck.prototype. = function ()
+Deck.prototype.rename = function (name)
 {
+	this.name = name;
 
+	return this;
 }
 
 
 
-Deck.prototype. = function ()
+Deck.prototype.compare = function (deck)
 {
+	var cmp = this.hero.localeCompare(deck.hero);
 
-}
+	if (!cmp)
+	{
+		cmp = this.name.localeCompare(deck.name);
+	}
 
-
-
-Deck.prototype. = function ()
-{
-
-}
-
-
-
-Deck.prototype. = function ()
-{
-
-}
-
-
-
-Deck.prototype. = function ()
-{
-
-}
-
-
-
-Deck.prototype. = function ()
-{
-
-}
-
-
-
-Deck.prototype. = function ()
-{
-
+	return cmp;
 }
 
 
 
 
+
+
+
+
+
+
+
+
+
+/* Define User object properties and methods
+ *
+ * User.properties:
+ * 		name  -- string containing user name
+ * 		stats -- tracks win/loss rates over all decks for user
+ * 		decks -- object tracking decks
+ * 		         Index by hero name strings for array of all associated decks
+ * 		         'all' property is an array of all decks
+ *
+ * 	User.methods:
+ * 		getDeck(hero,name);
+ * 		getDecksByHero(hero);
+ * 		getAllDecks();
+ * 		addDeck(hero,name);
+ * 		removeDeck(hero,name);
+ * 		renameDeck(hero,oldname,newname);
+ * 		rename(name);
+ * 		makeTidy();
+ * */
 
 function User(name)
 {
 	this.name = name;
 	this.stats = new Stats();
-	this.decks = [];
-	this.heroes = {};
+	this.decks = { all:[] };
 	for (var i = 0; i < heroNames.length; i++)
 	{
 		this.heroes[heroNames[i]] = [];
@@ -332,17 +415,19 @@ function User(name)
 
 
 
-User.prototype.indexOf = function (hero,name)
+User.prototype.getDeck = function (hero,name)
 {
-	for (var i = 0; i < this.heroes[hero].length; i++)
+	var d;
+
+	for (var i = 0; i < this.decks[hero].length; i++)
 	{
-		if (this.heroes[hero][i].name == name)
+		if (this.decks[hero][i].name == name)
 		{
-			return i;
+			return this.decks[hero][i];
 		}
 	}
 
-	return -1;
+	return undefined;
 }
 
 
@@ -362,18 +447,11 @@ User.prototype.getDecksByHero = function (hero)
 
 
 
-User.prototype.getDeck = function (hero,name)
-{
-	var i = this.indexOf(hero,name);
-	if (i >= 0) return this.heroes[hero][i];
-	else return this.addDeck(hero,name);
-}
-
-
-
 User.prototype.addDeck = function (hero,name)
 {
-	var deck = new Deck(hero,name);
+	var deck = this.getDeck(hero,name);
+	if (deck) return deck;
+	else deck = new Deck(hero,name);
 
 	this.decks.push(deck);
 	this.heroes[hero].push(deck);
