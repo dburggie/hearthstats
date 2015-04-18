@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="test.js"></script>
+<script src="../js/data.js"></script>
+<script>
+
+
+var StatsTests = [];
+
+
+
+function testConstructor() {
+	var stats = new Stats();
+	var h = '';
+	var errors = [];
+
+	if (stats.games.all != 0) errors.push("Stats(): Stats.games.all is non-zero");
+	if (stats.wins.all != 0) errors.push("Stats(): Stats.wins.all is non-zero"
+	for (var i = 0; i < heroNames.length; i++)
+	{
+		h = heroNames[i];
+		if (stats.games[h] != 0) errors.push("Stats(): Stats.games['"+h+"] != 0";
+		if (stats.wins[h] != 0) errors.push("Stats(): Stats.wins['"+h+"] != 0";
+	}
+
+	return errors;
+}
+
+StatsTests.push(testConstructor);
+
+
+
+// stats.victory(hero)
+function testVictory()
+{
+	var stats = new Stats();
+	var otg = 0;
+	var otw = 0;
+	var og = 0;
+	var ow = 0;
+	var g = 0;
+	var w = 0;
+	var h = '';
+	var errors = [];
+
+	for (var i = 0; i < heroNames.length; i++)
+	{
+		h = heroNames[i];
+		otg = stats.games.all;
+		otw = stats.wins.all;
+		og = stats.games[h];
+		ow = stats.wins[h];
+
+		stats.victory(h);
+
+		if (stats.games.all - 1 != otg)
+		{
+			errors.push(
+				"Stats.victory('"
+				+ h
+				+ "'): Stats.games.all didn't increment."
+			);
+		}
+
+		if (stats.wins.all - 1 != otw)
+		{
+			errors.push(
+				"Stats.victory('"
+				+ h
+				+ "'): Stats.wins.all didn't increment."
+			);
+		}
+
+		if (stats.games[h] - 1 != og)
+		{
+			errors.push(
+				"Stats.victory('" + h
+				+ "'): Stats.games['" + h + "'] didn't increment"
+			);
+		}
+
+		if (stats.wins[h] - 1 != ow)
+		{
+			errors.push(
+				"Stats.victory('" + h
+				+ "'): Stats.wins['" + h + "'] didn't increment"
+			);
+		}
+	}
+
+	return errors;
+}
+
+
+
+
+
+// stats.defeat(hero)
+// stats.update()
+// stats.reset()
+// setHero(hero,games,wins)
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
