@@ -39,8 +39,6 @@ function testVictory()
 	var otw = 0;
 	var og = 0;
 	var ow = 0;
-	var g = 0;
-	var w = 0;
 	var h = '';
 	var errors = [];
 
@@ -92,13 +90,79 @@ function testVictory()
 	return errors;
 }
 
-
+StatsTests.push(testVictory);
 
 
 
 // stats.defeat(hero)
+function testDefeat()
+{
+	var stats = new Stats();
+
+	var otg = 0;
+	var otw = 0;
+	var og = 0;
+	var ow = 0;
+
+	var h = '';
+	
+	var errors = [];
+
+	for (var i = 0; i < heroNames.length; i++)
+	{
+		h = heroNames[i];
+
+		otg = stats.games.all;
+		otw = stats.wins.all;
+		og = stats.games[h];
+		ow = stats.wins[h];
+
+		stats.defeat(h);
+
+		if (stats.games.all - 1 != otg)
+		{
+			errors.push("Stats.defeat('" + h + "'): bad stats.games.all");
+		}
+
+		if (stats.wins.all != otw)
+		{
+			errors.push("Stats.defeat('" + h + "'): bad stats.wins.all");
+		}
+
+		if (stats.games[h] - 1 != og)
+		{
+			errors.push(
+				"Stats.defeat('" + h + "'): bad stats.games['" + h + "']"
+			);
+		}
+
+		if (stats.wins[h] != ow)
+		{
+			errors.push(
+				"Stats.defeat('" + h + "'): bad stats.wins['" + h + "']"
+			);
+		}
+	}
+
+	return errors;
+}
+
+StatsTests.push(testDefeat);
+
+
+
+
 // stats.update()
+function testUpdate()
+{
+	
+}
+
+StatsTests.push(testUpdate);
+
+
 // stats.reset()
+
 // setHero(hero,games,wins)
 
 
