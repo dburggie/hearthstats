@@ -310,7 +310,30 @@ Deck.prototype.addMatchup = function (hero,name)
 
 Deck.prototype.removeMatchup = function (hero,name)
 {
-	
+	var i;
+	var m;
+
+	for (i = 0; i < this.matchups.all.length; i++)
+	{
+		m = this.matchups.all[i];
+		if (hero == m.hero && name == m.name)
+		{
+			this.matchups.all.splice(i,i+1);
+			break;
+		}
+	}
+
+	for (i = 0; i < this.matchups[hero].length; i++)
+	{
+		m = this.matchups[hero][i];
+		if (hero == m.hero && name == m.name)
+		{
+			this.matchups[hero].splice(i,i+1);
+			break;
+		}
+	}
+
+	return this;
 }
 
 
@@ -400,6 +423,7 @@ Deck.prototype.compare = function (deck)
  * 		renameDeck(hero,oldname,newname);
  * 		rename(name);
  * 		makeTidy();
+ * 		compare(user);
  * */
 
 function User(name)
@@ -538,7 +562,7 @@ User.prototype.rename = function (name)
 
 
 
-User.prototype.tidy = function ()
+User.prototype.makeTidy = function ()
 {
 	var hero;
 	var games;
@@ -560,4 +584,11 @@ User.prototype.tidy = function ()
 			this.stats.wins[hero] += wins;
 		}
 	}
+}
+
+
+
+User.prototype.compare = function (user)
+{
+	return this.name.localeCompare(user);
 }
