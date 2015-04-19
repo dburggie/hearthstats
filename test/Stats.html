@@ -214,6 +214,65 @@ StatsTests.push(testUpdate);
 
 
 // stats.reset()
+function testReset()
+{
+	var stats = new Stats();
+
+	var h = '';
+
+	var errors = [];
+
+	for (i = 0; i < heroNames.length; i++)
+	{
+		h = heroNames[i];
+
+		stats.games.all += 2;
+		stats.games[h] += 2;
+		stats.wins.all += 1;
+		stats.wins[h] += 1;
+	}
+
+	stats.reset();
+
+	if (stats.games.all != 0)
+	{
+		errors.push(
+			"Stats.reset(): .games.all non-zero after call"
+		);
+	}
+
+	if (stats.wins.all != 0)
+	{
+		errors.push(
+			"Stats.reset(): .wins.all non-zero after call"
+		);
+	}
+
+	for (var i = 0; i < heroNames.length; i++)
+	{
+		h = heroNames[i];
+
+		if (stats.games[h] != 0)
+		{
+			errors.push(
+				"Stats.reset(): .games['" + h + "'] non-zero after call"
+			);
+		}
+
+		if (stats.wins[h] != 0)
+		{
+			errors.push(
+				"Stats.reset(): .wins['" + h + "'] non-zero after call"
+			);
+		}
+	}
+
+	return errors;
+}
+
+
+StatsTests.push(testReset);
+
 
 // setHero(hero,games,wins)
 
