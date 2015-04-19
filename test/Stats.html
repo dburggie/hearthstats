@@ -343,6 +343,40 @@ StatsTests.push(testSetHero);
 
 
 </script>
+
+
+
+<div id="errorArea"></div>
+<script>
+
+var errors = [];
+
+for (var i = 0; i < StatsTests.length; i++)
+{
+	errors.cat(StatsTests[i]());
+}
+
+if (errors.length == 0)
+{
+	document.getElementById("errorArea").innerHTML =
+		"<h1>Stats is error free!</h1>";
+}
+
+else
+{
+	var text = '';
+	for (var i = 0; i < errors.length; i++)
+	{
+		text += "<p>" + errors[i] + "</p>";
+	}
+	document.getElementById("errorArea").innerHTML = text;
+}
+
+
+
+
+
+</script>
 </body>
 </html>
 
