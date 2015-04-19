@@ -3,6 +3,7 @@
 <body>
 <script src="test.js"></script>
 <script src="../js/data.js"></script>
+<script src="PRNG.js"></script>
 <script>
 
 
@@ -274,7 +275,71 @@ function testReset()
 StatsTests.push(testReset);
 
 
+
 // setHero(hero,games,wins)
+function testSetHero()
+{
+	var stats = new Stats();
+	var prng = new PRNG(42);
+
+	var tg = 0;
+	var tw = 0;
+
+	var g = 0;
+	var w = 0;
+	
+	var h = '';
+
+	var errors = [];
+
+	for (var i = 0; i < heroNames.length; i++)
+	{
+		h = heroNames[i];
+		g = prng.get();
+		w = prng.get();
+
+		tg += g;
+		tw += w;
+
+		stats.setHero(h,g,w);
+
+		if (stats.games.all != tg)
+		{
+			errors.push(
+				"Stats.setHero('" + h + "'," + g 
+				+ ',' + w + "): bad .games.all"
+			);
+		}
+
+		if (stats.wins.all != tw)
+		{
+			errors.push(
+				"Stats.setHero('" + h + "'," + g 
+				+ ',' + w + "): bad .wins.all"
+			);
+		}
+
+		if (stats.games[h] != g)
+		{
+			errors.push(
+				"Stats.setHero('" + h + "'," + g + ',' 
+				+ w + "): bad .games['" + h + "']"
+			);
+		}
+
+		if (stats.wins[h] != w)
+		{
+			errors.push(
+				"Stats.setHero('" + h + "'," + g + ',' 
+				+ w + "): bad .wins['" + h + "']"
+			);
+		}
+	}
+
+	return errors;
+}
+
+StatsTests.push(testSetHero);
 
 
 </script>
