@@ -155,7 +155,59 @@ StatsTests.push(testDefeat);
 // stats.update()
 function testUpdate()
 {
-	
+	var stats = new Stats();
+
+	var g = 0;
+	var w = 0;
+
+	var h = '';
+
+	var errors = [];
+
+	for (var i = 0; i < heroNames.length; i++)
+	{
+		h = heroNames[i];
+		g = stats.games.all;
+		w = stats.wins.all;
+		
+		stats.games[h] = 2;
+		stats.wins[h] = 2;
+
+		stats.update();
+
+		if (stats.games.all != g + 2)
+		{
+			errors.push(
+				"Stats.update(): did not track increase to .games['" + h + "']"
+			);
+		}
+
+		if (stats.wins.all != w + 2)
+		{
+			errors.push(
+				"Stats.update(): did not track increase to .wins['" + h + "']"
+			);
+		}
+
+		stats.games[h] = 1;
+		stats.wins[h] = 1;
+
+		if (stats.games.all != g + 1)
+		{
+			errors.push(
+				"Stats.update(): did not track decrease to .games['" + h + "']"
+			);
+		}
+
+		if (stats.wins.all != w + 1)
+		{
+			errors.push(
+				"Stats.update(): did not track decrease to .wins['" + h + "']"
+			);
+		}
+	}
+
+	return errors;
 }
 
 StatsTests.push(testUpdate);
