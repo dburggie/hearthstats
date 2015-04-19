@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+
+<script src="../js/data.js"></script>
+<script src="PRNG.js">
+<script>
+
+var MatchupTests = [];
+
+
+function testConstructor()
+{
+	var errors = [];
+
+	var h = '';
+	var n = '';
+
+	var m;
+
+	for (var i = 0; i < heroNames.length; i++)
+	{
+		h = heroNames[i];
+		for (var j = 0; j < heroNames.length; j++)
+		{
+			n = heroNames[j];
+			m = new Matchup(h,n);
+
+			if (h.localeCompare(m.hero))
+			{
+				errors.push(
+					"Matchup(): bad copy into .hero"
+				);
+			}
+
+			if (n.localeCompare(m.name))
+			{
+				errors.push(
+					"Matchup(): bad copy into .name"
+				);
+			}
+
+			if (m.games)
+			{
+				errors.push("Matchup(): .games non-zero");
+			}
+
+			if (m.wins)
+			{
+				errors.push("Matchup(): .wins non-zero");
+			}
+		}
+	}
+
+	return errors;
+}
+
+MatchupTests.push(testConstructor);
+
+
+
+// 		victory()
+function testVictory()
+{
+	var errors = [];
+	var m = new Matchup("Mage","Freeze");
+
+	m.victory();
+
+	if (m.games != 1)
+	{
+		errors.push("Matchup.victory(): .games not incremented");
+	}
+
+	if (m.wins != 1)
+	{
+		errors.push("Matchup.victory(): .wins not incremented");
+	}
+
+	return errors;
+}
+
+MatchupTests.push(testVictory());
+
+
+
+// 		defeat()
+function testDefeat()
+{
+
+}
+
+MatchupTests.push(testDefeat);
+
+
+
+// 		set(games,wins)
+function testSet()
+{
+
+}
+
+MatchupTests.push(testSet);
+
+
+
+// 		reset()
+function testReset()
+{
+
+}
+
+MatchupTests.push(testReset);
+
+
+
+// 		rename(name)
+function testRename()
+{
+
+}
+
+MatchupTests.push(testRename);
+
+
+
+// 		compare(matchup)
+function testCompare()
+{
+
+}
+
+MatchupTests.push(testCompare);
+</script>
+
+
+
+
+</body>
