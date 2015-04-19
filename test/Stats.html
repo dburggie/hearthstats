@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <body>
-<script src="test.js"></script>
 <script src="../js/data.js"></script>
 <script src="PRNG.js"></script>
 <script>
@@ -16,13 +15,29 @@ function testConstructor() {
 	var h = '';
 	var errors = [];
 
-	if (stats.games.all != 0) errors.push("Stats(): Stats.games.all is non-zero");
-	if (stats.wins.all != 0) errors.push("Stats(): Stats.wins.all is non-zero"
+	if (stats.games.all != 0) 
+	{
+		errors.push("Stats(): Stats.games.all is non-zero");
+	}
+
+	if (stats.wins.all != 0)
+	{
+		errors.push("Stats(): Stats.wins.all is non-zero");
+	}
+
 	for (var i = 0; i < heroNames.length; i++)
 	{
 		h = heroNames[i];
-		if (stats.games[h] != 0) errors.push("Stats(): Stats.games['"+h+"] != 0";
-		if (stats.wins[h] != 0) errors.push("Stats(): Stats.wins['"+h+"] != 0";
+		
+		if (stats.games[h] != 0)
+		{
+			errors.push("Stats(): Stats.games['"+h+"] != 0");
+		}
+
+		if (stats.wins[h] != 0)
+		{
+			errors.push("Stats(): Stats.wins['"+h+"] != 0");
+		}
 	}
 
 	return errors;
@@ -346,14 +361,17 @@ StatsTests.push(testSetHero);
 
 
 
-<div id="errorArea"></div>
+<div id="errorArea"> 
+	<p>We didn't write anything here for some reason</p> 
+</div>
+
 <script>
 
 var errors = [];
 
 for (var i = 0; i < StatsTests.length; i++)
 {
-	errors.cat(StatsTests[i]());
+	errors.concat(StatsTests[i]());
 }
 
 if (errors.length == 0)

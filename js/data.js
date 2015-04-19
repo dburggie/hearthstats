@@ -35,87 +35,94 @@ var heroNames = [
 //Stats constructor
 function Stats()
 {
-	this.games = {total:0};
-	this.wins = {total:0};
+	var i;
+	var h = '';
+	this.games = {all:0};
+	this.wins = {all:0};
 	
-	for (var i = 0, var h = ''; i < heroNames.length; i++)
+	for (i = 0; i < heroNames.length; i++)
 	{
 		h = heroNames[i];
 		this.games[h] = 0;
 		this.wins[h] = 0;
 	}
-
-
-
-	this.victory = function(hero)
-	{
-		this.games[hero]++;
-		this.games.total++;
-		this.wins[hero]++;
-		this.wins.total++;
-		return this;
-	}
-
-
-
-	this.defeat = function(hero)
-	{
-		this.games[hero]++;
-		this.games[total]++;
-		return this;
-	}
-
-
-
-	this.update = function()
-	{
-		var tg = 0;
-		var tw = 0;
-		for (var i = 0; var h = ''; i < heroNames.length; i++)
-		{
-			h= heroNames[i];
-			tg += this.games[h];
-			tw += this.wins[h];
-		}
-		this.games.total = tg;
-		this.wins.total = tw;
-		return this;
-	}
-
-
-
-	this.reset = function()
-	{
-		this.games.total = 0;
-		this.wins.total = 0;
-
-		for (var i = 0; i < heroNames.length; i++)
-		{
-			this.games[heroNames[h]] = 0;
-			this.wins[heroNames[h]] = 0;
-		}
-
-		return this;
-	}
-
-
-
-	this.setHero(hero,games,wins)
-	{
-		var diff = 0;
-
-		diff = this.games[hero] - games;
-		this.games[hero] = games;
-		this.games.total += gdiff;
-		
-		diff = this.wins[hero] - wins;
-		this.wins[hero] = wins;
-		this.wins.total += wdiff;
-
-		return this;
-	}
 }
 
+
+
+Stats.prototype.victory = function(hero)
+{
+	this.games[hero]++;
+	this.games.all++;
+	this.wins[hero]++;
+	this.wins.all++;
+	return this;
+}
+
+
+
+Stats.prototype.defeat = function(hero)
+{
+	this.games[hero]++;
+	this.games.all++;
+	return this;
+}
+
+
+
+Stats.prototype.update = function()
+{
+	var tg = 0;
+	var tw = 0;
+
+	var i;
+	var h = '';
+	for (i = 0; i < heroNames.length; i++)
+	{
+		h= heroNames[i];
+		tg += this.games[h];
+		tw += this.wins[h];
+	}
+	this.games.all = tg;
+	this.wins.all = tw;
+	return this;
+}
+
+
+
+Stats.prototype.reset = function()
+{
+	this.games.all = 0;
+	this.wins.all = 0;
+
+	var h = '';
+
+	for (var i = 0; i < heroNames.length; i++)
+	{
+		h = heroNames[i];
+		this.games[heroNames[h]] = 0;
+		this.wins[heroNames[h]] = 0;
+	}
+
+	return this;
+}
+
+
+
+Stats.prototype.setHero = function(hero,games,wins)
+{
+	var diff = 0;
+
+	diff = this.games[hero] - games;
+	this.games[hero] = games;
+	this.games.all += diff;
+	
+	diff = this.wins[hero] - wins;
+	this.wins[hero] = wins;
+	this.wins.all += diff;
+
+	return this;
+}
 
 
 
@@ -211,7 +218,7 @@ Matchup.prototype.compare = function(matchup)
 
 	if (!cmp)
 	{
-		cmp this.name.localeCompare(matchup.name);
+		cmp = this.name.localeCompare(matchup.name);
 	}
 
 	return cmp;
@@ -512,6 +519,7 @@ User.prototype.removeDeck = function(hero,name)
 User.prototype.renameDeck = function(hero,oldname,newname)
 {
 	var i = this.indexOf(hero,oldname);
+	var error = '';
 	if (i >= 0)
 	{
 		this.heroes[hero][i].rename(newname);
@@ -519,7 +527,7 @@ User.prototype.renameDeck = function(hero,oldname,newname)
 
 	else
 	{
-		var error = 'User.renameDeck(): ' + this.name + 
+		error += 'User.renameDeck(): ' + this.name;
 		error += ' - deck "' + hero + '.' + oldname + '" does not exits';
 		debug(error);
 	}
