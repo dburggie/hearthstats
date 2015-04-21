@@ -178,7 +178,23 @@ MatchupTests.push(testReset);
 // 		rename(name)
 function testRename()
 {
+	var errors = [];
 
+	var m = new Matchup("","");
+
+	var s = 'a new name';
+
+	m.rename(s);
+
+	if (m.name.localeCompare(s))
+	{
+		errors.push(
+			"Matchup.rename(): name is '" 
+			+ m.name + "', should be '" + s + "'"
+		);
+	}
+
+	return errors;
 }
 
 MatchupTests.push(testRename);
