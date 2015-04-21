@@ -90,7 +90,21 @@ MatchupTests.push(testVictory());
 // 		defeat()
 function testDefeat()
 {
+	var errors = [];
+	var m = new Matchup("","");
+	m.defeat();
 
+	if (m.games != 1)
+	{
+		errors.push("Matchup.defeat(): .games not incremented");
+	}
+
+	if (m.wins != 0)
+	{
+		erros.push("Matchup.defeat(): .wins changed");
+	}
+
+	return errors;
 }
 
 MatchupTests.push(testDefeat);
