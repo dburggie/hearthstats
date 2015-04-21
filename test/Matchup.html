@@ -145,7 +145,30 @@ MatchupTests.push(testSet);
 // 		reset()
 function testReset()
 {
+	var errors = [];
 
+	var m = new Matchup("","");
+
+	for (var g = 0; g < 100; g++)
+	{
+		for (var w = 0; w <= g; w++)
+		{
+			m.set(g,w);
+			m.reset();
+
+			if (m.games != 0)
+			{
+				errors.push("Matchup.reset(): .games non-zero");
+			}
+
+			if (m.wins != 0)
+			{
+				errors.push("Matchup.reset: .wins non-zero");
+			}
+		}
+	}
+
+	return errors;
 }
 
 MatchupTests.push(testReset);
