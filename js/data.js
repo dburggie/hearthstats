@@ -236,11 +236,11 @@ Matchup.prototype.compare = function(matchup)
 /* Define Deck object properties and methods 
  * 
  * Deck.properties:
- * 		hero   -- string containing the hero class for the deck
- * 		name   -- string containing the deck's name
- * 		stats  -- Stats object tracks the winrate of the deck
- * 		heroes -- object containing arrays of all deck matchups, and deck
- * 		          matchups broken down by enemy hero.
+ * 		hero     -- string containing the hero class for the deck
+ * 		name     -- string containing the deck's name
+ * 		stats    -- Stats object tracks the winrate of the deck
+ * 		matchups -- object containing arrays of all deck matchups, and deck
+ * 		            matchups broken down by enemy hero.
  *
  * Deck.methods:
  * 		victory(hero,name)
@@ -429,18 +429,16 @@ Deck.prototype.compare = function(deck)
  * 		removeDeck(hero,name);
  * 		renameDeck(hero,oldname,newname);
  * 		rename(name);
- * 		makeTidy();
  * 		compare(user);
  * */
 
 function User(name)
 {
 	this.name = name;
-	this.stats = new Stats();
 	this.decks = { all:[] };
 	for (var i = 0; i < heroNames.length; i++)
 	{
-		this.heroes[heroNames[i]] = [];
+		this.decks[heroNames[i]] = [];
 	}
 }
 
@@ -465,14 +463,14 @@ User.prototype.getDeck = function(hero,name)
 
 User.prototype.getAllDecks = function()
 {
-	return this.decks;
+	return this.decks.all;
 }
 
 
 
 User.prototype.getDecksByHero = function(hero)
 {
-	return this.heroes[hero];
+	return this.decks[hero];
 }
 
 
@@ -483,11 +481,11 @@ User.prototype.addDeck = function(hero,name)
 	if (deck) return deck;
 	else deck = new Deck(hero,name);
 
-	this.decks.push(deck);
-	this.heroes[hero].push(deck);
+	this.decks.all.push(deck);
+	this.decks[hero].push(deck);
 
-	this.decks.sort( function (a,b) { return a.compare(b); } );
-	this.heroes[hero].sort( function (a,b) { return a.compare(b); } );
+	this.decks.all.sort( function (a,b) { return a.compare(b); } );
+	this.decks[hero].sort( function (a,b) { return a.compare(b); } );
 
 	return deck;
 }
@@ -496,19 +494,24 @@ User.prototype.addDeck = function(hero,name)
 
 User.prototype.removeDeck = function(hero,name)
 {	
-	var i = this.indexOf(hero,name);
-	if (i >= 0)
+	var i;
+
+	for (i = 0; i < this.decks.all.length; i++)
 	{
-		this.heroes[hero].splice(i,i+1);
-		for (var j = 0; j < this.decks.length; j++)
+		if (hero == this.decks.all[i].hero && name == this.decks.all[i].name)
 		{
-			if (hero == this.decks[j].hero && name == this.decks[j].name)
-			{
-				this.decks.splice(j,j+1);
-				break;
-			}
+			this.decks.all.splice(i,i+1);
+			break;
 		}
-		this.tidy();
+	}
+
+	for (i = 0; i < this.decks[hero].length; i++)
+	{
+		if (name == this.decks[hero][i].name)
+		{
+			this.decks[hero].splice(i,i+1);
+			break;
+		}
 	}
 
 	return this;
@@ -518,49 +521,16 @@ User.prototype.removeDeck = function(hero,name)
 
 User.prototype.renameDeck = function(hero,oldname,newname)
 {
-	var i = this.indexOf(hero,oldname);
-	var error = '';
-	if (i >= 0)
-	{
-		this.heroes[hero][i].rename(newname);
-	}
+	var d = this.getDeck(hero,oldname);
 
-	else
+	if (d)
 	{
-		error += 'User.renameDeck(): ' + this.name;
-		error += ' - deck "' + hero + '.' + oldname + '" does not exits';
-		debug(error);
+		d.rename(newname);
+		this.decks.all.sort( function(a,b) { return a.compare(b); } );
+		this.decks[hero].sort( function(a,b) { return a.compare(b); } );
 	}
 
 	return this;
-}
-
-
-
-User.prototype.getGames = function()
-{
-	return this.stats.games.total;
-}
-
-
-
-User.prototype.getGamesByHero = function(hero)
-{
-	return this.stats.games[hero];
-}
-
-
-
-User.prototype.getWins = function()
-{
-	return this.stats.wins.total;
-}
-
-
-
-User.prototype.getWinsByHero = function(hero)
-{
-	return this.stats.wins[hero];
 }
 
 
@@ -568,34 +538,6 @@ User.prototype.getWinsByHero = function(hero)
 User.prototype.rename = function(name)
 {
 	this.name = name;
-
-	return this;
-}
-
-
-
-User.prototype.makeTidy = function()
-{
-	var hero;
-	var games;
-	var wins;
-
-	this.stats.reset();
-
-	for (var i = 0; i < heroNames.length; i++)
-	{
-		hero = heroNames[i];
-		for (j = 0; j < this.heroes[hero]; j++)
-		{
-			games = this.heroes[hero][i].getGames();
-			this.stats.games.total += games;
-			this.stats.games[hero] += games;
-
-			wins = this.heroes[hero][i].getWins();
-			this.stats.wins.total += wins;
-			this.stats.wins[hero] += wins;
-		}
-	}
 
 	return this;
 }

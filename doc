@@ -1,57 +1,114 @@
-We want a simple web page that tracks a deck's matchups against other decks.
 
-Druid
-Hunter
-Mage
-Paladin
-Priest
-Rogue
-Shaman
-Warlock
-Warrior
+I'm going to be trying out a MVC pattern for this project. This separates the 
+program into 3 main chunks: Model, View, and Controller.
+
+Model:
+	This is the underlying data structures the program will use to accomplish
+	it's goals. For this program, it will consist of the User class and few
+	other classes that help it track data. Let's take a look at the User class
+	and it's helper classes Deck, Matchup, and Stats.
+
+	User:
+		properties
+			String name
+		methods
+			Deck getDeck(hero,deckname)
+			Deck [] getDecksByHero(hero)
+			Deck [] getAllDecks()
+			User rename(newname)
+			int compare(user)
 
 
-Qualities of a player deck
-	has a name
-	has overall matchups against the nine heroes
-		each hero matchup is further broken down into aggro/midrange/control
+	Deck:
+		properties
+			String hero
+			String name
+			Stats stats
+		methods
+			Deck victory(hero,deckname)
+			Deck defeat(hero,deckname)
 
-class Deck:
-	string name
-	Map<string,Matchup> Matchups
-
-class Matchup:
-	string classname
-	int aggroGames
-	int aggroWins
-	int midrangeGames
-	int midrangeWins
-	int controlGames
-	int controlWins
-
-Save files:
-	a savefile consists of a sequence of strings delimited by the character '|'
-	a field 'player' indicates the next string will begin a new player data set
-	a field 'deck' indicates the next several strings correspond to matchups for a new deck
-
-ex:
-player|Andromeda|deck|Warlock|Handlock|Druid|0|0|0|0|0|0|Hunter|0|0|0|0|0|0|Mage|0|0|0|0|0|0|Paladin|0|0|0|0|0|0|Priest|0|0|0|0|0|0|Rogue|0|0|0|0|0|0|Shaman|0|0|0|0|0|0|Warlock|0|0|0|0|0|0|Warrior|0|0|0|0|0|0|
-
-the save file should be easily parsed. 
-	player flag indicates a new player object should be populated with name equal to the next field
-	deck flag indicates a new deck object should be populated with the following class, name, and matchups
-		note that the six counters associated to each matchup are preceded by the matchup's class name
-		the order of the matchup counter fields are as follows
-			games played against aggro
-			games won against aggro
-			games played against midrange
-			games won against midrange
-			games played against control
-			games won against control
-
-so a save file should look like this:
-	player|player name|[deck|deck class|deck name|[matchup|aggro games|aggro wins|midrange games|midrange wins|control games|control wins]...]...
-
-where the deck fiel
+			Matchup addMatchup(hero,deckname)
+			Deck removeMatchup(hero,deckname)
 			
+			Matchup getMatchup(hero,deckname)
+			Matchup [] getAllMatchups()
+			Matchup [] getMatchupsByHero(hero)
+
+			Deck rename(newname)
+			int compare(deck)
+
+	Matchup:
+		properties
+			String hero
+			String name
+			int games
+			int wins
+		methods
+			Matchup victory()
+			Matchup defeat()
+			
+			Matchup set(games,wins)
+			Matchup reset()
+
+			Matchup rename(newname)
+			int compare(matchup)
+
+	Stats:
+		properties
+			{} games -- index by all or by hero
+			{} wins  -- index by all or by hero
+		methods
+			victory(hero)
+			defeat(hero)
+			update()
+			reset()
+			setHero(hero,games,wins)
+
+View:
+	Passes input to controller, displays what controller tells it to display.
+
+	View:
+		properties
+			UserPanel
+			DeckPanel
+			HeroPanel
+			DisplayPanel
+		methods
+			displayUsers(userArray)
+			displayDecks(user)
+			displayMatchups(user,deck,hero)
+			focusMatchup(user,deck,hero,matchup)
+			displayError(message)
+
+Controller
+	Receives signals from View telling it to modify the model objects. Tracks 
+	program state and tells View what it should be displaying at any given
+	time.
+
+	Controller:
+		properties:
+			User [] users
+			User activeUser
+			Deck activeDeck
+			Matchup activeMatchup
+		methods:
+			selectUser(user)
+			addUser(user)
+
+			selectDeck(hero,deck)
+			addDeck(hero,deck)
+			
+			selectMatchup(hero,deck)
+			addMatchup(hero,deck)
+
+			logVictory();
+			logDefeat();
+
+			saveData()
+			loadData()
+
+
+	
+
 
