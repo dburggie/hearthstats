@@ -9,25 +9,48 @@
 	</p>
 </div>
 
-<h1 id="title_area"></h1>
+<div id="userArea" class="panel.horizontal">
+	<div id="userSelection" class = "selector.user"></div>
+	<div id="deckSelection" class = "selector.deck"></div>
+</div>
 
-<p id="text_area"></p>
+<div id="selectArea" class="layout.horizontal">
+	<div id="heroPanel" class="panel.vertical">
+		<div id="allHeroes" class="hero.all">
+			<p>All</p>
+		</div>
+		<div id="Druid" class="hero.Druid">
+			<p>Druid</p>
+		</div>
+		<div id="Hunter" class="hero.Hunter">
+			<p>Hunter</p>
+		</div>
+		<div id="Mage" class="hero.Mage">
+			<p>Mage</p>
+		</div>
+		<div id="Paladin" class="hero.Paladin">
+			<p>Paladin</p>
+		</div>
+		<div id="Priest" class="hero.Priest">
+			<p>Priest</p>
+		</div>
+		<div id="Rogue" class="hero.Rogue">
+			<p>Rogue</p>
+		</div>
+		<div id="Shaman" class="hero.Shaman">
+			<p>Shaman</p>
+		</div>
+		<div id="Warlock" class="hero.Warlock">
+			<p>Warlock</p>
+		</div>
+		<div id="Warrior" class="hero.Warrior">
+			<p>Warrior</p>
+		</div>
+	</div>
+	<div id="selectionPanel" class="border">
+	</div>
+</div>
 
-<button type="button" onclick="ButtonClick('button')">
-	button
-</button>
 
-<script src="js/debug.js"></script>
-<script>
-
-function ButtonClick(id)
-{
-	var source = document.getElementById('button');
-	var dest = document.getElementById('text_area');
-	dest.innerHTML = id;
-	debug("ButtonClick('" + id + "')");
-}
-
-</script>
 </body>
 </html>
