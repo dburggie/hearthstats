@@ -114,7 +114,28 @@ MatchupTests.push(testDefeat);
 // 		set(games,wins)
 function testSet()
 {
+	var errors = [];
 
+	var m = new Matchup("","");
+
+	for (var g = 0; g < 100; g++)
+	{
+		for (var w = 0; w <= g; w++)
+		{
+			m.set(g,w);
+			if (m.games != g)
+			{
+				errors.push("Matchup.set(): bad .games");
+			}
+
+			if (m.wins != w)
+			{
+				errors.push("Matchup.set(): bad .wins");
+			}
+		}
+	}
+
+	return errors;
 }
 
 MatchupTests.push(testSet);
