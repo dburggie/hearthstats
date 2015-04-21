@@ -204,7 +204,58 @@ MatchupTests.push(testRename);
 // 		compare(matchup)
 function testCompare()
 {
+	var errors = [];
+	var names = ["aaa","bbb","ccc","ddd"]
+	var m = [];
 
+	var cmp;
+	var i;
+	var j;
+
+	function toS(m)
+	{
+		return m.hero + '-' + m.name;
+	}
+
+	for (i = 0; i < heroNames.length; i++)
+	{
+		for (j = 0; j < names.length; j++)
+		{
+			matchups.push(new Matchup(heroNames[i],names[j]));
+		}
+	}
+
+	for (i = 0; i < m.length; i++)
+	{
+		for (j = 0; j < m.length; j++)
+		{
+			cmp = m[i].compare(m[j]);
+			if (i < j && cmp >= 0)
+			{
+				errors.push(
+					"Matchup.compare(): " + toS(m[i])
+					+ " should sort less than " + toS(m[j])
+				);
+			}
+
+			if (i == j && cmp != 0)
+			{
+				errors.push(
+					"Matchup.compare(): " + toS(m[i]) + " did not compare well to itself"
+				);
+			}
+
+			if (i > j && cmp <= 0)
+			{
+				errors.push(
+					"Matchup.compare(): " + toS(m[i])
+					+ " should compare greater than " + toS(m[j])
+				);
+			}
+		}
+	}
+
+	return errors;
 }
 
 MatchupTests.push(testCompare);
