@@ -1,27 +1,32 @@
 
 var toTest = ['Stats','Matchup','Deck','User']
 
-var test_link_button = '<button type="button" onclick="revealTestLinks()">tests</button>';
-
-var test_link_area = '<div id="test_links">';
-    test_link_area += test_link_button + '</div>';
-
-document.write(test_link_area);
+document.write('<div id="errorArea"><p>We did not write anything here for some reason</p></div>');
 
 
-function revealTestLinks()
+
+function runTests(tests)
 {
-	var text = '<p>';
-	var link = '';
-	
-	for (var i = 0; i < toTest.length; i++)
+	var errors = [];
+
+	for (var i = 0; i < tests.length; i++)
 	{
-		link = '<a href="test/' + toTest[i] + '.html">' + toTest[i] + '</a> ';
-		text += link;
+		errors.concat(tests[i]());
 	}
 
-	text += '</p>';
+	if (errors.length == 0)
+	{
+		document.getElementById("errorArea").innerHTML =
+			"<h1>No errors detected!</h1>";
+	}
 
-	document.getElementById("test_links").innerHTML = text;
+	else
+	{
+		var text = '';
+		for (var i = 0; i < errors.length; i++)
+		{
+			text += "<p>" + errors[i] + "</p>";
+		}
+		document.getElementById("errorArea").innerHTML = text;
+	}
 }
-

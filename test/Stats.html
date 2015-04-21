@@ -2,6 +2,7 @@
 <html>
 <body>
 <script src="../js/data.js"></script>
+<script src="test.js"></script>
 <script src="PRNG.js"></script>
 <script>
 
@@ -360,41 +361,10 @@ StatsTests.push(testSetHero);
 </script>
 
 
-
-<div id="errorArea"> 
-	<p>We didn't write anything here for some reason</p> 
-</div>
-
 <script>
-
-var errors = [];
-
-for (var i = 0; i < StatsTests.length; i++)
-{
-	errors.concat(StatsTests[i]());
-}
-
-if (errors.length == 0)
-{
-	document.getElementById("errorArea").innerHTML =
-		"<h1>Stats is error free!</h1>";
-}
-
-else
-{
-	var text = '';
-	for (var i = 0; i < errors.length; i++)
-	{
-		text += "<p>" + errors[i] + "</p>";
-	}
-	document.getElementById("errorArea").innerHTML = text;
-}
-
-
-
-
-
+	runTests(StatsTests);
 </script>
+
 </body>
 </html>
 
