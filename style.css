@@ -1,0 +1,57 @@
+
+/* Hide an element: 'display:none'
+ *
+ * */
+
+
+body {
+	background-color: #808080;
+}
+
+button {
+	display: block;
+}
+
+#heroPanel, #contentPanel {
+	display: inline;
+}
+
+.user, .deck {
+	display: inline;
+}
+
+.druid {
+	background-color: #00FF00;
+}
+
+.hunter {
+	background-color: #008000;
+}
+
+.mage {
+	background-color: #0080FF;
+}
+
+.paladin {
+	background-color: #FFFF00;
+}
+
+.priest {
+	background-color: #FFFFFF;
+}
+
+.rogue {
+	background-color: #400000;
+}
+
+.shaman {
+	background-color: #000080;
+}
+
+.warlock {
+	background-color: #400060;
+}
+
+.warrior {
+	background-color: #A02020;
+}
