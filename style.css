@@ -5,19 +5,23 @@
 
 
 body {
-	background-color: #808080;
+	background-color: #A0A0A0;
 }
 
 button {
 	display: block;
 }
 
-#heroPanel, #contentPanel {
+div {
+	background-color: #FFFFFF;
+}
+
+.inline {
 	display: inline;
 }
 
-.user, .deck {
-	display: inline;
+.block {
+	display: block;
 }
 
 .druid {
