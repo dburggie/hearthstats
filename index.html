@@ -2,6 +2,8 @@
 <html>
 <body>
 
+
+<!-- Quick links to the various test pages -->
 <div id="testLinks">
 	<p>
 		<a href="test/Stats.html">Stats</a>
@@ -9,48 +11,61 @@
 	</p>
 </div>
 
-<div id="userArea" class="panel.horizontal">
-	<div id="userSelection" class = "selector.user"></div>
-	<div id="deckSelection" class = "selector.deck"></div>
+
+
+<!-- This div contains buttons for selecting user/deck -->
+<div id="userPanel" class="horizontal">
+	<button id="userButton" class="user" onclick=" ">User</button>
+	<button id="deckButton" class="deck" onclick=" ">Deck</button>
 </div>
 
+
+
+<!-- This is a div to display error messages to the user. -->
+<div id="errorPanel" class="error"></div>
+
+
+
+<!-- The body div, contains two columns, each a div -->
 <div id="selectArea" class="layout.horizontal">
-	<div id="heroPanel" class="panel.vertical">
-		<div id="allHeroes" class="hero.all">
-			<p>All</p>
-		</div>
-		<div id="Druid" class="hero.Druid">
-			<p>Druid</p>
-		</div>
-		<div id="Hunter" class="hero.Hunter">
-			<p>Hunter</p>
-		</div>
-		<div id="Mage" class="hero.Mage">
-			<p>Mage</p>
-		</div>
-		<div id="Paladin" class="hero.Paladin">
-			<p>Paladin</p>
-		</div>
-		<div id="Priest" class="hero.Priest">
-			<p>Priest</p>
-		</div>
-		<div id="Rogue" class="hero.Rogue">
-			<p>Rogue</p>
-		</div>
-		<div id="Shaman" class="hero.Shaman">
-			<p>Shaman</p>
-		</div>
-		<div id="Warlock" class="hero.Warlock">
-			<p>Warlock</p>
-		</div>
-		<div id="Warrior" class="hero.Warrior">
-			<p>Warrior</p>
-		</div>
-	</div>
-	<div id="selectionPanel" class="border">
-	</div>
-</div>
 
+	<!-- The hero select panel. Allows limit of options to one hero. -->
+	<div id="heroPanel" class="panel.vertical">
+		<button id="allButton" class="all" onclick=" ">
+			All
+		</button>
+		<button id="DruidButton" class="druid" onclick=" ">
+			Druid
+		</button>
+		<button id="HunterButton" class="hunter" onclick=" ">
+			Hunter
+		</button>
+		<button id="MageButton" class="mage" onclick=" ">
+			Mage
+		</button>
+		<button id="PaladinButton" class="paladin" onclick=" ">
+			Paladin
+		</button>
+		<button id="PriestButton" class="priest" onclick=" ">
+			Priest
+		</button>
+		<button id="RogueButton" class="rogue" onclick=" ">
+			Rogue
+		</button>
+		<button id="ShamanButton" class="shaman" onclick=" ">
+			Shaman
+		</button>
+		<button id="WarlockButton" class="warlock" onclick=" ">
+			Warlock
+		</button>
+		<button id="WarriorButton" class="warrior" onclick=" ">
+			Warrior
+		</button>
+	</div>
+
+	<!-- This panel displays content relative to current task. -->
+	<div id="contentPanel" class="border"></div>
+</div>
 
 </body>
 </html>
