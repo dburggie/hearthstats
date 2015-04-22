@@ -5,57 +5,71 @@
 
 
 body {
-	background-color: #A0A0A0;
+	background-color: #e8e8e8;
 }
 
-button {
+.button {
+	background-color: #000000;
+	color: #FFFFFF;
 	display: block;
+	
+	border-radius: 10px;
+
+	margin: 5px;
+	padding: 13px 0px;
+	width: 200px;
+	height: 24px;
+
+	text-align: left;
+	text-indent: 25px;
+	font-size: 24px;
+
+	transition: width 0.25s;
 }
 
-div {
-	background-color: #FFFFFF;
+.button:hover {
+	width: 220px;
 }
 
-.inline {
-	display: inline;
+.column {
+	background-color: #ffffff;
+	width: 230px;
 }
 
-.block {
-	display: block;
-}
-
-.druid {
+#druidButton {
 	background-color: #00FF00;
 }
 
-.hunter {
+#hunterButton {
 	background-color: #008000;
 }
 
-.mage {
+#mageButton {
 	background-color: #0080FF;
 }
 
-.paladin {
+#paladinButton {
 	background-color: #FFFF00;
+	color: #000000;
 }
 
-.priest {
+#priestButton {
 	background-color: #FFFFFF;
+	color: #000000;
 }
 
-.rogue {
+#rogueButton {
 	background-color: #400000;
 }
 
-.shaman {
+#shamanButton {
 	background-color: #000080;
 }
 
-.warlock {
+#warlockButton {
 	background-color: #400060;
 }
 
-.warrior {
+#warriorButton {
 	background-color: #A02020;
 }

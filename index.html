@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <head>
 
-<link rel="stylesheet" ref="style.css">
+<title>HearthStats</title>
 
+<link rel="stylesheet" type="text/css" href="style.css">
+<meta charset="UTF-8">
+
+<meta name="author" content="Duncan Burggraf">
+<meta name="description" content="A Hearthstone decktracker.">
 
 </head>
 <body>
@@ -21,11 +26,15 @@
 
 <!-- This div contains buttons for selecting user/deck -->
 <div id="headerPanel" class="block">
-	<div id="userPanel" class="inline">
-		<button id="userButton" class="user" onclick=" ">User</button>
+	<div id="leftHeader" class="column">
+		<div id="userButton" class="button" onclick=" ">
+			User
+		</div>
 	</div>
-	<div id="deckPanel" class="inline">
-		<button id="deckButton" class="deck" onclick=" ">Deck</button>
+	<div id="rightHeader" class="column">
+		<div id="deckButton" class="button" onclick=" ">
+			deck
+		</div>
 	</div>
 </div>
 
@@ -37,61 +46,41 @@
 
 
 <!-- The hero select panel. Allows limit of options to one hero. -->
-<div id="heroPanel" class="inline">
-	<div>
-		<button id="allButton" class="all" onclick=" ">
-			All
-		</button>
+<div id="heroPanel" class="column">
+	<div id="allButton" class="button">
+		All
 	</div>
-	<div>
-		<button id="DruidButton" class="druid" onclick=" ">
+	<div id="druidButton" class="button">
 			Druid
-		</button>
 	</div>
-	<div>
-		<button id="HunterButton" class="hunter" onclick=" ">
+	<div id="hunterButton" class="button">
 			Hunter
-		</button>
 	</div>
-	<div>
-		<button id="MageButton" class="mage" onclick=" ">
+	<div id="mageButton" class="button">
 			Mage
-		</button>
 	</div>
-	<div>
-		<button id="PaladinButton" class="paladin" onclick=" ">
+	<div id="paladinButton" class="button">
 			Paladin
-		</button>
 	</div>
-	<div>
-		<button id="PriestButton" class="priest" onclick=" ">
+	<div id="priestButton" class="button">
 			Priest
-		</button>
 	</div>
-	<div>
-		<button id="RogueButton" class="rogue" onclick=" ">
+	<div id="rogueButton" class="button">
 			Rogue
-		</button>
 	</div>
-	<div>
-		<button id="ShamanButton" class="shaman" onclick=" ">
+	<div id="shamanButton" class="button">
 			Shaman
-		</button>
 	</div>
-	<div>
-		<button id="WarlockButton" class="warlock" onclick=" ">
+	<div id="warlockButton" class="button">
 			Warlock
-		</button>
 	</div>
-	<div>
-		<button id="WarriorButton" class="warrior" onclick=" ">
+	<div id="warriorButton" class="button">
 			Warrior
-		</button>
 	</div>
 </div>
 
 <!-- This panel displays content relative to current task. -->
-<div id="contentPanel" class="inline"></div>
+<div id="contentPanel" class="column"></div>
 
 </body>
 </html>
