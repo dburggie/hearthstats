@@ -8,6 +8,16 @@ body {
 	background-color: #e8e8e8;
 }
 
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	width: 560px;
+}
+
+
+/* Style for the button divs at the top and left of the UI
+ * Also styles any of the button divs within the content pane.
+ * */
 .button {
 	background-color: #000000;
 	color: #FFFFFF;
@@ -31,9 +41,41 @@ body {
 	width: 220px;
 }
 
-.column {
+.rbutton {
+	background-color: #000000;
+	color: #ffffff;
+	display: block;
+
+	border-radius: 10px;
+
+	margin: 5px;
+	padding: 13px 0px;
+	width: 300px;
+	height: 24px;
+
+	text-align: left;
+	text-indent: 25px;
+	font-size: 24px;
+
+	transition: width 0.25s;
+}
+
+.rbutton:hover {
+	width: 320px;
+}
+
+
+/* Floats adjacent columns so they end up side-by-side. */
+.left {
+	float: left;
 	background-color: #ffffff;
 	width: 230px;
+}
+
+.right {
+	float: right;
+	background-color: #ffffff;
+	width: 330px;
 }
 
 #druidButton {
